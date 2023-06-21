@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>xyz.yustheyokai</groupId>
 	<artifactId>sharex-spring-boot-custom-uploader</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>sharex-spring-boot-custom-uploader</name>
 	<description>Custom uploader for sharex using Spring Boot</description>
 	<properties>
