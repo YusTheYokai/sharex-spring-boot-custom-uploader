@@ -5,7 +5,7 @@ import static xyz.yustheyokai.sharexspringbootcustomuploader.controller.ViewCont
 
 import java.io.IOException;
 import java.net.URI;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +23,8 @@ public class UploadController {
     @Value("${sharex.folder}")
     private String folder;
 
-    @Value("${sharex.domain}")
-    private String domain;
+    @Value("${sharex.url}")
+    private String url;
 
     // /////////////////////////////////////////////////////////////////////////
     // Methods
@@ -41,9 +41,12 @@ public class UploadController {
 
         try {
             var filename = file.getOriginalFilename();
-            file.transferTo(Paths.get(folder, filename));
-            var url = Paths.get(domain, VIEW, filename).toString();
-            return ResponseEntity.created(URI.create(url)).body(url);
+            file.transferTo(Path.of(folder, filename));
+            // url needs to be prepended manually because
+            // Path.of removes one of the slashes from the URL
+            // (e.g. https://example.com/view/abc.png -> https:/example.com/view/abc.png)
+            var fileUrl = url + Path.of(VIEW, filename).toString();
+            return ResponseEntity.created(URI.create(fileUrl)).body(fileUrl);
         } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().build();

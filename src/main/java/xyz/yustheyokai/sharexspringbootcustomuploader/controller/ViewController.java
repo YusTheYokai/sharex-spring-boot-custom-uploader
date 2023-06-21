@@ -2,7 +2,7 @@ package xyz.yustheyokai.sharexspringbootcustomuploader.controller;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/" + ViewController.VIEW)
+@RequestMapping(ViewController.VIEW)
 public class ViewController {
 
-    protected static final String VIEW = "view";
+    protected static final String VIEW = "/view";
 
     @Value("${sharex.folder}")
     private String folder;
@@ -31,7 +31,7 @@ public class ViewController {
     @GetMapping("/{name}")
     public ResponseEntity<Resource> single(@PathVariable String name) {
         try {
-            var bytes = Files.readAllBytes(Paths.get(folder, name));
+            var bytes = Files.readAllBytes(Path.of(folder, name));
             var resource = new ByteArrayResource(bytes);
 
             BodyBuilder builder = ResponseEntity.ok().contentLength(resource.contentLength());

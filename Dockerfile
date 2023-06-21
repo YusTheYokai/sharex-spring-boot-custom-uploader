@@ -19,8 +19,8 @@ COPY --from=builder /app/target/*.jar ./app.jar
 
 # Establish the environment variables
 ENV PASSWORD=
+ENV URL=
 ENV FOLDER=uploads
-ENV DOMAIN=
 
 # Run the JAR file
-ENTRYPOINT java -Dsharex.password=$PASSWORD -Dsharex.folder=$FOLDER -Dsharex.domain=$DOMAIN -jar app.jar
+ENTRYPOINT java -Dsharex.password=$PASSWORD -Dsharex.url=$URL -Dsharex.folder=$FOLDER -jar app.jar
