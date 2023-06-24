@@ -38,10 +38,14 @@ public class ViewController {
 
             if (name.contains(".png")) {
                 builder.contentType(MediaType.IMAGE_PNG);
+            } else if (name.contains(".jpg") || name.contains(".jpeg")) {
+                builder.contentType(MediaType.IMAGE_JPEG);
             } else if (name.contains(".pdf")) {
                 builder.contentType(MediaType.APPLICATION_PDF);
             } else if (name.contains(".wav")) {
                 builder.header("Content-Type", "audio/wav");
+            } else if (name.contains(".mp4")) {
+                builder.header("Content-Type", "video/mp4");
             }
 
             return builder.body(resource);
