@@ -5,8 +5,10 @@ import static xyz.yustheyokai.sharexspringbootcustomuploader.controller.ViewCont
 
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 
+import org.apache.catalina.util.URLEncoder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,7 +47,7 @@ public class UploadController {
             // url needs to be prepended manually because
             // Path.of removes one of the slashes from the URL
             // (e.g. https://example.com/view/abc.png -> https:/example.com/view/abc.png)
-            var fileUrl = url + Path.of(VIEW, filename).toString();
+            var fileUrl = url + Path.of(VIEW, new URLEncoder().encode(filename, StandardCharsets.UTF_8)).toString();
             return ResponseEntity.created(URI.create(fileUrl)).body(fileUrl);
         } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
