@@ -1,6 +1,6 @@
-# Sharex Spring Boot Custom Uploader
+# ShareX Spring Boot Custom Uploader
 
-A custom uploader for Sharex using Spring Boot and its internal Tomcat.
+A custom uploader for ShareX using Spring Boot and its internal Tomcat.
 
 ## Setup
 
